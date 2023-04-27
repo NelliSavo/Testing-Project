@@ -19,7 +19,6 @@ Incorrect word displays in a GitLab main page in the section "Create black proje
 
 Incorrect word "black" is displaying in page https://gitlab.com/projects/new section "Create black project". 
     
-
 ## What is the expected correct behavior?
 
 Section "Create black project" in page https://gitlab.com/projects/new, should be the word "blank", instead of "black".
