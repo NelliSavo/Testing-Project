@@ -1,0 +1,76 @@
+
+### Issue Page functionality testsuit overview ### 
+
+#******************** Settings ************************
+
+*** Settings ***
+
+Documentation	Testing the Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+Pre Condition
+- Open the browser 
+- Log in to GitLab
+- Go to Projects
+
+Post Condition:
+- Log out of GitLab
+- Close the browser
+
+Tags
+- Issue page
+- Functionality
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+ProjectPageUrl = https://gitlab.com/projects/new
+Title = First_Project_2023
+NewTitle = First_Project_4/2023
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# Positive Test
+
+Create issue
+  Navigate To Project Page   ProjectPageUrl and press button "Your work".
+  Click  Issues
+  Click  New Issue in First Project 
+  Input Title 
+  Submit Create issue 
+  Verify  That the message show "Issue created just now by XYZ"
+
+Update name of issue
+  Navigate To Project Page   ProjectPageUrl and press button "Your work".
+  Click  First Project
+  Click  Issues 
+  Click  First_Project_2023
+  Click  Edit
+  Input  NewTitle
+  Submit  Save changes 
+  Verify  That the message show "XYZ changed title from First_Project_2023 to First_Project_4/2023 just now."
+
+Create a second issue with previous updated name
+  Navigate To Project Page   ProjectPageUrl and press button "Your work".
+  Click  First Project
+  Click  Issues 
+  Click  New issue 
+  Input  NewTitle
+  Submit  Create issue 
+  Verify  That the message show "Similar issues: These existing issues have a similar title. It might be better to comment there instead of creating another similar issue." and "Issue created just now by XYZ."
+
+Delete first issue
+  Navigate To Project Page   ProjectPageUrl and press button "Your work".
+  Click  First Project
+  Click  Issues 
+  Click  First_Project_4/2023
+  Click  Issue action button (represented by three dots)
+  Submit  Delete issue 
+  Verify  That the message show "The issue was successfully deleted."
+

@@ -1,0 +1,100 @@
+
+### Register page functionality Testsuit overview ###
+
+#******************** Settings ************************
+
+*** Settings ***
+
+Documentation  Testing the User registeration fucntionality with verification, valid and invalid credentials. 
+
+Pre Condition
+
+- Open the browser
+- Go to https://gitlab.com/users/sign_up.
+
+Post Condition
+
+- Log out of GitLab
+- Close the browser
+
+Tags
+
+- Sign up 
+- Functionality
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+# Here Test Data defined as a Variable for easy sign up. 
+
+LoginUrl = https://gitlab.com/users/sign_up
+FirstName = X
+LastName = YZ
+Username = XYZ
+Email = XYZ@info.com
+Password = ***
+Invalid_Email = XYZZZ@info.com
+Empty =
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Test 
+
+Register user with valid username and password 
+    Navigate To Sign Up Page   SignUpUrl
+	Input FirstName  FirstName
+	Input LastName  LastName
+	Input Username  Username
+	Input Email  Email 
+	Input Password  Password
+	Submit   Sign up Form
+	Verify   Page Should Contain Welcome page	
+
+# Negative Test 
+
+Register user with same above username
+    Navigate To Sign Up Page   SignUpUrl
+	Input FirstName  FirstName
+	Input LastName  LastName
+	Input Username  Username
+	Input Email  Email 
+	Input Password  Password
+	Submit   Sign up Form
+	Verify  That these error messages should show "Username is already taken." and "1 error prohibited this user from being saved: Username has already been taken."
+
+Register user with empty password    
+    Navigate To Sign Up Page   SignUpUrl
+	Input FirstName  FirstName
+	Input LastName  LastName
+	Input Username  Username
+	Input Email  Empty
+	Input Password  Password
+	Submit   Sign up Form
+	Verify   That Error message should show "Please provide a valid email address."
+
+Register user with invalid email 
+    Navigate To Sign Up Page   SignUpUrl
+	Input FirstName  FirstName
+	Input LastName  LastName
+	Input Username  Username
+	Input Email   Invalid_Email
+	Input Password  Password
+	Submit   Sign up Form
+	Verify  That these error messages should show "This email address does not look right, are you sure you typed it correctly?" and "We recommend a work email address."
+
+Register user without recaptcha.
+    Navigate To Sign Up Page   SignUpUrl
+	Input FirstName  FirstName
+	Input LastName  LastName
+	Input Username  Username
+	Input Email  Email 
+	Input Password  Password
+	Submit   Sign up Form
+	Verify   Page Should Contain Welcome page

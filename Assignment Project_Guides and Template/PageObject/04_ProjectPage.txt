@@ -1,0 +1,109 @@
+
+### Project Page functionality testsuit overview ### 
+
+#******************** Settings ************************
+
+*** Settings ***
+
+Documentation	Testing the project test scenario. CRUD Operation: Create, Read, Update, Delete.
+
+Pre Condition
+- Open the browser 
+- Log in to GitLab
+- Go to https://gitlab.com/projects/new. 
+
+Post Condition	
+- Log out of GitLab
+- Close the browser
+
+Tags
+- Project page 
+- Functionality
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+# TODO: Write Project creation field variables
+
+ProjectPageUrl = https://gitlab.com/projects/new
+ProjectName = Project-2023
+ProjectURL = https://gitlab.com/XYZ/
+ProjectSlug = project-2023
+VisibilityLevel = Private
+Different_ProjectName = Project_Nam 
+Different_ProjectSlug = project_nam
+Template = Pages/Plain HTML
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# Positive Test 
+
+Create blank project
+    Navigate To Project Page   ProjectPageUrl and press button "Create blank project".
+	Input ProjectName  ProjectName
+	Input ProjectURL  ProjectURL
+	Input ProjectSlug  ProjectSlug
+	VisibilityLevel  VisibilityLevel
+	Submit   Create project
+	Verify   That message should show "Project 'Project-2023' was successfully created."
+
+Create template project 
+   Navigate To Project Page   ProjectPageUrl and press button "Create from template".
+   Choose   Template 
+   Input ProjectName  Different_ProjectName
+   Input ProjectURL  ProjectURL
+   Input ProjectSlug  Different_ProjectSlug
+   VisibilityLevel  VisibilityLevel
+   Submit  Create project
+   Verify  That message should show "The project was successfully imported."
+
+Update name of template project
+    Navigate To Project Page   ProjectPageUrl and press button "Your work".
+    Click  Different_ProjectName
+	Navigate to Settings 
+	Update the Project name field.
+	Submit  Save changes 
+    Verify  That message should show "Project 'Project_2023' was successfully updated."
+
+Delete template project
+    Navigate To Project Page   ProjectPageUrl and press button "Your work".
+	Click  ProjectName
+	Navigate to Settings
+    Submit  Delete project 
+	Verify  That the message should show "Project 'XYZ / Project-2023' is in the process of being deleted."
+
+Valide that message is showing Project 'First project ' was successfully created.
+    Navigate To Project Page   ProjectPageUrl and press button "Create blank project".
+	Input ProjectName  First Project
+	Submit Create project 
+	Verify  That the message should show "Project 'First Project ' was successfully created."
+
+# Negative Test 
+
+Create a blank project with the previous same name
+    Navigate To Project Page   ProjectPageUrl and press button "Create blank project".
+	Input ProjectName  ProjectName
+	Input ProjectURL  ProjectURL
+	Input ProjectSlug  ProjectSlug
+	VisibilityLevel  VisibilityLevel
+	Submit   Create project
+	Verify   That Error message should show "The form contains the following errors: Project namespace name has already been taken, Name has already been taken, Path has already been taken."
+
+
+Insert  project name  Project_Nam
+    Navigate To Project Page   ProjectPageUrl and press button "Create blank project".
+	Input ProjectName  Different_ProjectName
+	Input ProjectURL  ProjectURL
+	Input ProjectSlug  ProjectSlug
+	VisibilityLevel  VisibilityLevel
+	Submit   Create project
+	Verify   That Error message should show "The form contains the following error: Path has already been taken."
+
+
+
+
