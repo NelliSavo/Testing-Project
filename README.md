@@ -1,3 +1,1 @@
-# Mod-7 | Assignment Testing Project
-
-# Nelli Savolainen 
+University testing project
